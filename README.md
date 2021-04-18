@@ -65,4 +65,3 @@ Project Link: [https://pine-apple-server.herokuapp.com/](https://pine-apple-serv
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: assetsMD/screenshot.png
-[product-logo]: assets/react.png
