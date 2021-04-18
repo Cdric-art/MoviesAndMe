@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, StyleSheet, TextInput, View, Image, FlatList, Text} from 'react-native';
-import { data } from '../data/filmsData';
+import {Button, FlatList, Image, StyleSheet, TextInput, View,} from 'react-native';
+import {data} from '../data/filmsData';
 import {FilmItem} from "./FilmItem";
 
 export function Search() {

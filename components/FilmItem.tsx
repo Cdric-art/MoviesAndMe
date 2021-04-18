@@ -23,6 +23,8 @@ export const FilmItem = ({film}: Props) => {
                     <Text style={styles.titleFilm}>{film.title}</Text>
                     <Text style={styles.average}>{film.vote_average}</Text>
                 </View>
+                <Text style={styles.description} numberOfLines={4}>{film.overview}</Text>
+                <Text style={styles.date}>Sorti le {film.release_date}</Text>
             </View>
         </View>
     );
@@ -33,8 +35,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 30,
-        paddingLeft: 5,
-        paddingRight: 5,
+        paddingHorizontal: 5,
     },
     image: {
         width: 100,
@@ -51,10 +52,18 @@ const styles = StyleSheet.create({
     titleFilm: {
         flex: 1,
         flexWrap: 'wrap',
+        fontSize: 19,
         fontWeight: "bold",
     },
     average: {
-        fontSize: 10,
-        zIndex: 1,
+        fontSize: 16,
+    },
+    description: {
+        color: '#666666',
+        fontStyle: 'italic',
+    },
+    date: {
+        paddingTop: 5,
+        fontSize: 12,
     }
 })
