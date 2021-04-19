@@ -1,19 +1,40 @@
-import React from 'react';
-import {Button, FlatList, Image, StyleSheet, TextInput, View,} from 'react-native';
-import {data} from '../data/filmsData';
-import {FilmItem} from "./FilmItem";
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Button, FlatList, Image, StyleSheet, TextInput, View} from 'react-native';
+import {FilmItem} from './FilmItem';
+import {apiFetch} from './api/apiFetch';
+import {wait} from "./libs/wait";
 
 export function Search() {
+
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        apiFetch('')
+            .then(response => setData(response.results))
+            .catch(err => console.log(err))
+
+        wait(2000)
+            .then(() => setIsLoading(true))
+    }, [])
+
     return (
-        <View>
+        <View style={{flex: 1}}>
             <TextInput style={styles.textInput} placeholder='Titre du film'/>
             <Button color='#000' title='Rechercher' onPress={(e) => console.log(e)}/>
             <Image style={styles.logoSearch} source={require('../assets/icons8-search-64.png')}/>
-            <FlatList
-                data={data}
-                renderItem={({item}) => <FilmItem film={item}/>}
-                keyExtractor={item => item.id.toString()}
-            />
+            {data && isLoading ? (
+                <FlatList
+                    data={data}
+                    renderItem={({item}) => <FilmItem film={item}/>}
+                    keyExtractor={item => item.episode_id.toString()}
+                />
+            ) : (
+                <View style={styles.loader}>
+                    <ActivityIndicator size="large" color="#000"/>
+                </View>
+            )
+            }
         </View>
     );
 }
@@ -35,5 +56,10 @@ const styles = StyleSheet.create({
         height: 30,
         width: 30,
         opacity: .5,
+    },
+    loader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })

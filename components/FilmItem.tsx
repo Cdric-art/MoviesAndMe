@@ -4,11 +4,11 @@ import {Image, StyleSheet, Text, View} from "react-native";
 interface Props {
     film: {
         id: number;
-        vote_average: number;
+        episode_id: number;
         title: string;
         poster_path: string;
         original_title: string;
-        overview: string;
+        opening_crawl: string;
         release_date: string;
     }
 }
@@ -21,9 +21,9 @@ export const FilmItem = ({film}: Props) => {
             <View style={styles.containerText}>
                 <View style={styles.headerText}>
                     <Text style={styles.titleFilm}>{film.title}</Text>
-                    <Text style={styles.average}>{film.vote_average}</Text>
+                    <Text style={styles.average}>Film n.{film.episode_id}</Text>
                 </View>
-                <Text style={styles.description} numberOfLines={4}>{film.overview}</Text>
+                <Text style={styles.description} numberOfLines={5}>{film.opening_crawl}</Text>
                 <Text style={styles.date}>Sorti le {film.release_date}</Text>
             </View>
         </View>
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     },
     headerText: {
         flexDirection: 'row',
-        alignItems: 'center'
     },
     titleFilm: {
         flex: 1,
@@ -56,14 +55,17 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     average: {
-        fontSize: 16,
+        fontSize: 14,
+        paddingLeft: 15
     },
     description: {
+        flex: 1,
         color: '#666666',
         fontStyle: 'italic',
+        fontSize: 13
     },
     date: {
-        paddingTop: 5,
+        flex: 1,
         fontSize: 12,
     }
 })

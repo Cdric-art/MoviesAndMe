@@ -1,4 +1,4 @@
-export async function apiFetch(query: string): Promise<any> {
+export async function apiFetch(query: string|null): Promise<any> {
     const response = await fetch(`https://swapi.dev/api/films/${query}`, {
         method: 'GET',
         headers: {
