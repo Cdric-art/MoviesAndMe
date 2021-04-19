@@ -3,14 +3,15 @@ import {ActivityIndicator, Button, FlatList, Image, StyleSheet, TextInput, View}
 import {FilmItem} from './FilmItem';
 import {apiFetch} from './api/apiFetch';
 import {wait} from "./libs/wait";
+import {StatusBar} from "expo-status-bar";
 
-export function Search() {
+export function Search({ navigation }) {
 
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        apiFetch('')
+        apiFetch('films/')
             .then(response => setData(response.results))
             .catch(err => console.log(err))
 
@@ -19,15 +20,19 @@ export function Search() {
     }, [])
 
     return (
-        <View style={{flex: 1}}>
-            <TextInput style={styles.textInput} placeholder='Titre du film'/>
+        <View style={styles.container}>
+            <StatusBar/>
+            <View>
+                <TextInput style={styles.textInput} placeholder='Titre du film'/>
+                <Image style={styles.logoSearch} source={require('../assets/icons8-search-64.png')}/>
+            </View>
             <Button color='#000' title='Rechercher' onPress={(e) => console.log(e)}/>
-            <Image style={styles.logoSearch} source={require('../assets/icons8-search-64.png')}/>
             {data && isLoading ? (
                 <FlatList
                     data={data}
-                    renderItem={({item}) => <FilmItem film={item}/>}
+                    renderItem={({item, index}) => <FilmItem film={item} id={index} navigation={navigation}/>}
                     keyExtractor={item => item.episode_id.toString()}
+                    showsVerticalScrollIndicator={false}
                 />
             ) : (
                 <View style={styles.loader}>
@@ -40,6 +45,12 @@ export function Search() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 10,
+        paddingHorizontal: 10,
+        backgroundColor: '#fff',
+    },
     textInput: {
         height: 50,
         backgroundColor: '#dedede',

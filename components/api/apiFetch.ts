@@ -1,5 +1,5 @@
-export async function apiFetch(query: string|null): Promise<any> {
-    const response = await fetch(`https://swapi.dev/api/films/${query}`, {
+export async function apiFetch(endpoint: string|null): Promise<any> {
+    const response = await fetch(`https://swapi.dev/api/${endpoint}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',

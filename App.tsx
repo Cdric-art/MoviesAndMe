@@ -1,22 +1,26 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar} from "expo-status-bar";
-import {StyleSheet, View} from 'react-native';
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 import {Search} from "./components/Search";
+import {FilmDetails} from "./components/FilmDetails";
+
+const Stack = createStackNavigator();
 
 export default function App() {
     return (
-        <View style={styles.container}>
-            <StatusBar/>
-            <Search/>
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{
+                headerStatusBarHeight: 30
+            }}>
+                <Stack.Screen name='Home' component={Search}/>
+                <Stack.Screen
+                    name='FilmDetails'
+                    component={FilmDetails}
+                    options={({ route }) => ({ title: route.params.title})}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 50,
-        paddingHorizontal: 10,
-        backgroundColor: '#fff',
-    },
-});

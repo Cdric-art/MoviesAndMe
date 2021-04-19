@@ -1,19 +1,19 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 
 interface Props {
     film: {
-        id: number;
         episode_id: number;
         title: string;
         poster_path: string;
         original_title: string;
         opening_crawl: string;
         release_date: string;
-    }
+    },
+    id: number
 }
 
-export const FilmItem = ({film}: Props) => {
+export const FilmItem = ({film, id, navigation}: Props) => {
 
     return (
         <View style={styles.container}>
@@ -24,7 +24,15 @@ export const FilmItem = ({film}: Props) => {
                     <Text style={styles.average}>Film n.{film.episode_id}</Text>
                 </View>
                 <Text style={styles.description} numberOfLines={5}>{film.opening_crawl}</Text>
-                <Text style={styles.date}>Sorti le {film.release_date}</Text>
+                <View style={styles.footerText}>
+                    <Text style={styles.date}>Sorti le {film.release_date}</Text>
+                    <Pressable onPress={() => navigation.navigate('FilmDetails', {
+                        filmId: id + 1,
+                        title: film.title
+                    })}>
+                        <Text style={styles.link}>Voir plus</Text>
+                    </Pressable>
+                </View>
             </View>
         </View>
     );
@@ -64,8 +72,16 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         fontSize: 13
     },
-    date: {
+    footerText: {
         flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    date: {
         fontSize: 12,
+    },
+    link: {
+        fontSize: 12,
+        color: '#007AFF'
     }
 })
