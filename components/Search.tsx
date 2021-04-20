@@ -5,6 +5,7 @@ import {apiFetch} from './api/apiFetch';
 import {wait} from "./libs/wait";
 import {StatusBar} from "expo-status-bar";
 
+// @ts-ignore
 export function Search({ navigation }) {
 
     const [data, setData] = useState(null);

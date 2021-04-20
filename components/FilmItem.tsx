@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
+import {NavigationProp} from "@react-navigation/native";
 
 interface Props {
     film: {
@@ -10,7 +11,8 @@ interface Props {
         opening_crawl: string;
         release_date: string;
     },
-    id: number
+    id: number,
+    navigation: NavigationProp<any>
 }
 
 export const FilmItem = ({film, id, navigation}: Props) => {
